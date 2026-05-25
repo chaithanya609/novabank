@@ -35,7 +35,7 @@ otp_storage = {}
 import os
 from pymongo import MongoClient
 
-MONGO_URI = os.environ.get("mongodb+srv://cchaithanya651_db_user:tCt1RN73PO50hSbW@cluster0.yazsgpf.mongodb.net/?appName=Cluster0&retryWrites=true&w=majority")
+MONGO_URI = os.environ.get("mongodb+srv://cchaithanya651_db_user:tCt1RN73PO50hSbW@cluster0.mongodb.net/?retryWrites=true&w=majority")
 
 client = MongoClient(MONGO_URI)
 
