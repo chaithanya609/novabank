@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaBank Signup</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#0f172a,#1e3a8a,#06b6d4);
+            overflow:hidden;
+            position:relative;
+        }
+
+        /* Animated Background */
+
+        .circle{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(255,255,255,0.1);
+            animation:float 6s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1){
+            width:220px;
+            height:220px;
+            top:10%;
+            left:10%;
+        }
+
+        .circle:nth-child(2){
+            width:300px;
+            height:300px;
+            bottom:5%;
+            right:10%;
+        }
+
+        .circle:nth-child(3){
+            width:150px;
+            height:150px;
+            top:70%;
+            left:20%;
+        }
+
+        @keyframes float{
+
+            0%,100%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(-25px);
+            }
+        }
+
+        /* Signup Container */
+
+        .signup-container{
+            position:relative;
+            width:400px;
+            padding:40px;
+            background:rgba(255,255,255,0.12);
+            border-radius:25px;
+            backdrop-filter:blur(15px);
+            box-shadow:0 8px 32px rgba(0,0,0,0.3);
+            color:white;
+            border:1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Logo */
+
+        .logo{
+            text-align:center;
+            font-size:40px;
+            margin-bottom:10px;
+            font-weight:bold;
+        }
+
+        .logo span{
+            color:#06b6d4;
+        }
+
+        .signup-container h2{
+            text-align:center;
+            margin-bottom:30px;
+            font-size:30px;
+        }
+
+        /* Input */
+
+        .input-box{
+            margin-bottom:20px;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            outline:none;
+            background:rgba(255,255,255,0.15);
+            color:white;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        .input-box input::placeholder{
+            color:#ddd;
+        }
+
+        .input-box input:focus{
+            background:rgba(255,255,255,0.25);
+            transform:scale(1.02);
+        }
+
+        /* Button */
+
+        .signup-btn{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            background:#06b6d4;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+            font-weight:bold;
+        }
+
+        .signup-btn:hover{
+            background:#0891b2;
+            transform:scale(1.03);
+        }
+
+        /* Extra */
+
+        .extra{
+            text-align:center;
+            margin-top:18px;
+        }
+
+        .extra a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .extra a:hover{
+            text-decoration:underline;
+        }
+
+        /* Responsive */
+
+        @media(max-width:500px){
+
+            .signup-container{
+                width:90%;
+                padding:30px;
+            }
+
+            .signup-container h2{
+                font-size:25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <!-- Signup Container -->
+
+    <div class="signup-container">
+
+        <div class="logo">
+            Nova<span>Bank</span>
+        </div>
+
+        <h2>Create Account</h2>
+
+        <!-- Signup Form -->
+
+        <form id="signupForm">
+
+            <div class="input-box">
+                <input type="text"
+                       name="username"
+                       placeholder="Enter Full Name"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <input type="email"
+                       name="email"
+                       placeholder="Enter Email"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <input type="text"
+                       name="accountNumber"
+                       placeholder="Enter Account Number"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <input type="password"
+                       name="pin"
+                       placeholder="Create 4 Digit PIN"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <input type="password"
+                       name="password"
+                       placeholder="Create Password"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <input type="password"
+                       name="confirm_password"
+                       placeholder="Confirm Password"
+                       required>
+            </div>
+
+            <button type="submit" class="signup-btn">
+                Signup
+            </button>
+
+        </form>
+
+        <!-- Login Link -->
+
+        <div class="extra">
+            <p>
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+        </div>
+
+    </div>
+
+<script>
+
+document.getElementById("signupForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    /* Password Match */
+
+    if(this.password.value !== this.confirm_password.value){
+
+        alert("Passwords do not match");
+
+        return;
+    }
+
+    /* PIN Validation */
+
+    if(this.pin.value.length !== 4){
+
+        alert("PIN must be 4 digits");
+
+        return;
+    }
+
+    /* Form Data */
+
+    const formData = {
+
+        username:this.username.value,
+        email:this.email.value,
+        accountNumber:this.accountNumber.value,
+        pin:this.pin.value,
+        password:this.password.value
+
+    };
+
+    try{
+
+        const response = await fetch("https://YOUR-RENDER-BACKEND.onrender.com/signup", {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(formData)
+
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        if(result.success){
+
+            window.location.href = "login.html";
+
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert("Server Error");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

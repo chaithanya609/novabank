@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaBank - Services</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Poppins,sans-serif;
+            background:#0f172a;
+            color:white;
+        }
+
+        nav{
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,0.05);
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:bold;
+        }
+
+        .logo span{
+            color:#00c6ff;
+        }
+
+        nav ul{
+            display:flex;
+            list-style:none;
+            gap:30px;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+        }
+
+        .container{
+            padding:80px 8%;
+        }
+
+        .title{
+            text-align:center;
+            font-size:50px;
+            margin-bottom:50px;
+        }
+
+        .service{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.08);
+            padding:30px;
+            border-radius:20px;
+        }
+
+        .card h2{
+            color:#00c6ff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Nova<span>Bank</span>
+    </div>
+
+   
+
+</nav>
+
+<div class="container">
+
+    <h1 class="title">Our Banking Service</h1>
+
+    <div class="service">
+
+        <div class="card">
+            <h2>Money Transfer</h2>
+            <p>Transfer funds securely.</p>
+        </div>
+
+        <div class="card">
+            <h2>Online Payments</h2>
+            <p>Pay bills and recharge instantly.</p>
+        </div>
+
+        <div class="card">
+            <h2>Loan Management</h2>
+            <p>Manage loans digitally.</p>
+        </div>
+
+        <div class="card">
+            <h2>Investment Tracking</h2>
+            <p>Track savings and investments.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

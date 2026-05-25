@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NovaBank Admin Panel</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:'';
+            position:fixed;
+            width:500px;
+            height:500px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            border-radius:50%;
+            top:-150px;
+            left:-150px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        body::after{
+            content:'';
+            position:fixed;
+            width:450px;
+            height:450px;
+            background:linear-gradient(45deg,#7f00ff,#e100ff);
+            border-radius:50%;
+            bottom:-120px;
+            right:-120px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        nav{
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo{
+            font-size:32px;
+            font-weight:bold;
+        }
+
+        .logo span{
+            color:#00c6ff;
+        }
+
+        .admin-badge{
+            padding:12px 22px;
+            border-radius:30px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .admin-badge:hover{
+            transform:scale(1.05);
+        }
+
+        .hero{
+            padding:50px 8% 30px;
+        }
+
+        .hero h1{
+            font-size:48px;
+            margin-bottom:10px;
+        }
+
+        .hero span{
+            color:#00c6ff;
+        }
+
+        .hero p{
+            color:#cbd5e1;
+        }
+
+        .stats-grid{
+            padding:20px 8%;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .stat-card{
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.1);
+            backdrop-filter:blur(15px);
+            border-radius:25px;
+            padding:30px;
+            transition:0.3s;
+        }
+
+        .stat-card:hover{
+            transform:translateY(-8px);
+        }
+
+        .stat-card i{
+            font-size:45px;
+            margin-bottom:20px;
+            color:#00c6ff;
+        }
+
+        .stat-card h2{
+            font-size:18px;
+            color:#cbd5e1;
+            margin-bottom:10px;
+        }
+
+        .stat-card h1{
+            font-size:38px;
+        }
+
+        .main-grid{
+            padding:30px 8%;
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:30px;
+        }
+
+        .panel{
+            background:rgba(255,255,255,0.08);
+            border-radius:25px;
+            padding:30px;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        .panel h2{
+            margin-bottom:25px;
+            color:#00c6ff;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            overflow:hidden;
+            border-radius:20px;
+        }
+
+        th{
+            background:#00c6ff;
+            padding:16px;
+        }
+
+        td{
+            padding:16px;
+            text-align:center;
+            border-bottom:1px solid rgba(255,255,255,0.08);
+        }
+
+        tr:hover{
+            background:rgba(255,255,255,0.05);
+        }
+
+        .status{
+            padding:8px 14px;
+            border-radius:30px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .active{
+            background:#16a34a;
+        }
+
+        .action-btn{
+            width:100%;
+            padding:15px;
+            margin-bottom:18px;
+            border:none;
+            border-radius:14px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .action-btn:hover{
+            transform:scale(1.03);
+        }
+
+        .chart-section{
+            padding:10px 8% 60px;
+        }
+
+        .chart-box{
+            background:rgba(255,255,255,0.08);
+            border-radius:25px;
+            padding:30px;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        .chart-box h2{
+            color:#00c6ff;
+            margin-bottom:25px;
+        }
+
+        footer{
+            text-align:center;
+            padding:25px;
+            color:#cbd5e1;
+            background:rgba(255,255,255,0.05);
+        }
+
+        @media(max-width:1000px){
+
+            .main-grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:34px;
+            }
+
+            table{
+                font-size:13px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Nova<span>Bank</span>
+    </div>
+
+    <div class="admin-badge" onclick="logoutAdmin()">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+    </div>
+
+</nav>
+
+<section class="hero">
+
+    <h1>
+
+        Welcome to
+
+        <span>Administrator</span>
+
+    </h1>
+
+    <p>
+
+        Monitor users, transactions, loans,
+        and analytics records.
+
+    </p>
+
+</section>
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-users"></i>
+
+        <h2>Total Users</h2>
+
+        <h1 id="usersCount">0</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-money-bill-transfer"></i>
+
+        <h2>Total Transactions</h2>
+
+        <h1 id="transactionsCount">0</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-building-columns"></i>
+
+        <h2>Total Loans</h2>
+
+        <h1 id="loansCount">0</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <h2>Total Revenue</h2>
+
+        <h1 id="revenueCount">₹0</h1>
+
+    </div>
+
+</section>
+
+<section class="main-grid">
+
+    <div class="panel">
+
+        <h2>Recent Transactions</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Account</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="transactionTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Quick Actions</h2>
+
+        <button class="action-btn">
+            <i class="fa-solid fa-user-plus"></i>
+            Add New Admin
+        </button>
+
+        <button class="action-btn">
+            <i class="fa-solid fa-ban"></i>
+            Freeze User Account
+        </button>
+
+        <button class="action-btn">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            Approve Loan Requests
+        </button>
+
+        <button class="action-btn">
+            <i class="fa-solid fa-credit-card"></i>
+            Manage Debit Cards
+        </button>
+
+        <button class="action-btn">
+            <i class="fa-solid fa-chart-line"></i>
+            View Analytics
+        </button>
+
+    </div>
+
+</section>
+
+<section class="chart-section">
+
+    <div class="chart-box">
+
+        <h2>Banking Analytics</h2>
+
+        <canvas id="bankChart"></canvas>
+
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 NovaBank Admin Dashboard
+
+</footer>
+
+<script>
+
+function logoutAdmin(){
+
+    alert("Admin Logged Out");
+
+    window.location.href = "index.html";
+}
+
+async function loadAdminData(){
+
+    const response = await fetch(
+    "https://YOUR-RENDER-BACKEND.onrender.com/admin-stats"
+    );
+
+    const data = await response.json();
+
+    document.getElementById("usersCount")
+    .innerText = data.users;
+
+    document.getElementById("transactionsCount")
+    .innerText = data.transactions;
+
+    document.getElementById("loansCount")
+    .innerText = data.loans;
+
+    document.getElementById("revenueCount")
+    .innerText = `₹${data.revenue}`;
+}
+
+async function loadTransactions(){
+
+    const response = await fetch(
+    "https://YOUR-RENDER-BACKEND.onrender.com/all-transactions"
+    );
+
+    const transactions = await response.json();
+
+    const table =
+    document.getElementById("transactionTable");
+
+    table.innerHTML = "";
+
+    transactions.reverse().forEach((txn)=>{
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${txn.accountNumber}</td>
+            <td>${txn.type}</td>
+            <td>₹${txn.amount}</td>
+
+            <td>
+                <span class="status active">
+                    Successful
+                </span>
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+}
+
+const ctx = document.getElementById('bankChart');
+
+const bankChart = new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: [
+            'Users',
+            'Transactions',
+            'Loans',
+            'Revenue'
+        ],
+
+        datasets: [{
+
+            label: 'NovaBank Analytics',
+
+            data: [0,0,0,0],
+
+            backgroundColor:[
+                '#00c6ff',
+                '#0072ff',
+                '#7f00ff',
+                '#06b6d4'
+            ],
+
+            borderRadius:12
+
+        }]
+
+    },
+
+    options: {
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+                labels:{
+                    color:'white'
+                }
+            }
+        },
+
+        scales:{
+
+            y:{
+                ticks:{
+                    color:'white'
+                }
+            },
+
+            x:{
+                ticks:{
+                    color:'white'
+                }
+            }
+        }
+    }
+});
+
+async function updateChart(){
+
+    const response = await fetch(
+    "https://YOUR-RENDER-BACKEND.onrender.com/admin-stats"
+    );
+
+    const data = await response.json();
+
+    bankChart.data.datasets[0].data = [
+        data.users,
+        data.transactions,
+        data.loans,
+        data.revenue
+    ];
+
+    bankChart.update();
+}
+
+loadAdminData();
+loadTransactions();
+updateChart();
+
+</script>
+
+</body>
+</html>

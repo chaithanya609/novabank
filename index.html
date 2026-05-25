@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>NovaBank - Home</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:'';
+            position:fixed;
+            width:600px;
+            height:600px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            border-radius:50%;
+            top:-200px;
+            left:-200px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        body::after{
+            content:'';
+            position:fixed;
+            width:500px;
+            height:500px;
+            background:linear-gradient(45deg,#7f00ff,#e100ff);
+            border-radius:50%;
+            bottom:-150px;
+            right:-150px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        nav{
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:700;
+        }
+
+        .logo span{
+            color:#00c6ff;
+        }
+
+        .nav-right{
+            display:flex;
+            align-items:center;
+            gap:40px;
+        }
+
+        nav ul{
+            display:flex;
+            list-style:none;
+            gap:30px;
+            align-items:center;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+            transition:0.3s;
+            font-weight:500;
+        }
+
+        nav ul li a:hover{
+            color:#00c6ff;
+        }
+
+        .nav-buttons{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .nav-btn{
+            padding:11px 22px;
+            border:none;
+            border-radius:30px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            color:white;
+            cursor:pointer;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .nav-btn:hover{
+            transform:translateY(-2px);
+        }
+
+        .hero{
+            min-height:90vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            text-align:center;
+            padding:40px;
+        }
+
+        .hero h1{
+            font-size:65px;
+            margin-bottom:20px;
+            line-height:1.2;
+        }
+
+        .hero h1 span{
+            color:#00c6ff;
+        }
+
+        .hero p{
+            width:70%;
+            color:#d1d5db;
+            line-height:1.8;
+            margin-bottom:30px;
+        }
+
+        .hero-buttons{
+            display:flex;
+            gap:20px;
+        }
+
+        .btn{
+            padding:14px 32px;
+            border:none;
+            border-radius:40px;
+            cursor:pointer;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            transform:translateY(-3px);
+        }
+
+        .primary{
+            background:#00c6ff;
+            color:white;
+        }
+
+        .secondary{
+            background:transparent;
+            border:2px solid #00c6ff;
+            color:white;
+        }
+
+        .features{
+            padding:80px 8%;
+            text-align:center;
+        }
+
+        .features h2{
+            font-size:45px;
+            margin-bottom:50px;
+        }
+
+        .feature-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:30px;
+        }
+
+        .feature-box{
+            background:rgba(255,255,255,0.05);
+            padding:40px 30px;
+            border-radius:20px;
+            transition:0.3s;
+        }
+
+        .feature-box:hover{
+            transform:translateY(-8px);
+            background:rgba(255,255,255,0.08);
+        }
+
+        .feature-box i{
+            font-size:45px;
+            color:#00c6ff;
+            margin-bottom:20px;
+        }
+
+        .feature-box h3{
+            margin-bottom:12px;
+        }
+
+        .feature-box p{
+            color:#d1d5db;
+        }
+
+        footer{
+            text-align:center;
+            padding:25px;
+            background:rgba(255,255,255,0.05);
+        }
+
+        /* Admin Popup */
+
+        .popup{
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            width:350px;
+            background:#111827;
+            padding:30px;
+            border-radius:20px;
+            display:none;
+            z-index:1000;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        .popup h2{
+            text-align:center;
+            margin-bottom:20px;
+            color:#00c6ff;
+        }
+
+        .popup input{
+            width:100%;
+            padding:14px;
+            margin-bottom:15px;
+            border:none;
+            border-radius:10px;
+            background:#1e293b;
+            color:white;
+            outline:none;
+        }
+
+        .popup button{
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:10px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        .overlay{
+            position:fixed;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.7);
+            top:0;
+            left:0;
+            display:none;
+            z-index:999;
+        }
+
+        @media(max-width:900px){
+
+            nav{
+                flex-direction:column;
+                gap:20px;
+            }
+
+            .nav-right{
+                flex-direction:column;
+                gap:20px;
+            }
+
+            .hero h1{
+                font-size:45px;
+            }
+
+            .hero p{
+                width:100%;
+            }
+
+            .hero-buttons{
+                flex-direction:column;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="popup" id="adminPopup">
+
+    <h2>Admin Login</h2>
+
+    <input type="text"
+    id="adminId"
+    placeholder="Enter Admin ID">
+
+    <input type="password"
+    id="adminPassword"
+    placeholder="Enter Password">
+
+    <button onclick="adminLogin()">
+        Login
+    </button>
+
+</div>
+
+<nav>
+
+    <div class="logo">
+        Nova<span>Bank</span>
+    </div>
+
+    <div class="nav-right">
+
+        <ul>
+
+            <li><a href="index.html">Home</a></li>
+
+            <li><a href="service.html">Services</a></li>
+
+            <li><a href="about.html">About</a></li>
+
+        </ul>
+
+        <div class="nav-buttons">
+
+            <button class="nav-btn"
+            onclick="openAdminPopup()">
+
+                <i class="fa-solid fa-user-shield"></i>
+                Admin
+
+            </button>
+
+            <a href="login.html">
+
+                <button class="nav-btn">
+
+                    <i class="fa-solid fa-user"></i>
+                    Login
+
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<section class="hero">
+
+    <h1>
+
+        Smart Banking <br>
+
+        <span>For Modern Users</span>
+
+    </h1>
+
+    <p>
+
+        Experience secure and lightning-fast digital banking with AI-powered
+        transaction tracking, instant transfers, smart analytics,
+        and advanced protection.
+
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="signup.html">
+
+            <button class="btn primary">
+                Get Started
+            </button>
+
+        </a>
+
+        <a href="about.html">
+
+            <button class="btn secondary">
+                Learn More
+            </button>
+
+        </a>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <h2>Our Banking Features</h2>
+
+    <div class="feature-container">
+
+        <div class="feature-box">
+
+            <i class="fa-solid fa-money-bill-transfer"></i>
+
+            <h3>Instant Transfer</h3>
+
+            <p>
+                Secure instant transactions.
+            </p>
+
+        </div>
+
+        <div class="feature-box">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>Smart Analytics</h3>
+
+            <p>
+                Track expenses and monitor growth.
+            </p>
+
+        </div>
+
+        <div class="feature-box">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h3>Advanced Security</h3>
+
+            <p>
+                Multi-layer account protection.
+            </p>
+
+        </div>
+
+        <div class="feature-box">
+
+            <i class="fa-solid fa-mobile-screen-button"></i>
+
+            <h3>Mobile Banking</h3>
+
+            <p>
+                Bank anytime and anywhere.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 NovaBank | Secure Banking Platform
+
+</footer>
+
+<script>
+
+function openAdminPopup(){
+
+    document.getElementById("adminPopup")
+    .style.display = "block";
+
+    document.getElementById("overlay")
+    .style.display = "block";
+}
+
+function closePopup(){
+
+    document.getElementById("adminPopup")
+    .style.display = "none";
+
+    document.getElementById("overlay")
+    .style.display = "none";
+}
+
+function adminLogin(){
+
+    const adminId =
+    document.getElementById("adminId").value;
+
+    const password =
+    document.getElementById("adminPassword").value;
+
+    if(
+        adminId === "admin" &&
+        password === "admin123"
+    ){
+
+        alert("Admin Login Successful");
+
+        window.location.href = "admin.html";
+    }
+
+    else{
+
+        alert("Invalid Admin ID or Password");
+    }
+}
+
+document.getElementById("overlay")
+.addEventListener("click",closePopup);
+
+</script>
+
+</body>
+</html>
+

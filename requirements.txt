@@ -1,0 +1,8 @@
+Flask
+flask-cors
+pymongo
+bcrypt
+flask-mail
+reportlab
+gunicorn
+dnspython

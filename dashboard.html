@@ -1,0 +1,648 @@
+<!-- SAVE AS dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NovaBank ATM Dashboard</title>
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        /* Animated Background */
+
+        body::before{
+            content:'';
+            position:fixed;
+            width:500px;
+            height:500px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            border-radius:50%;
+            top:-150px;
+            left:-150px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        body::after{
+            content:'';
+            position:fixed;
+            width:450px;
+            height:450px;
+            background:linear-gradient(45deg,#7f00ff,#e100ff);
+            border-radius:50%;
+            bottom:-120px;
+            right:-120px;
+            filter:blur(120px);
+            z-index:-1;
+        }
+
+        /* Navbar */
+
+        nav{
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+        }
+
+        .logo{
+            font-size:32px;
+            font-weight:bold;
+        }
+
+        .logo span{
+            color:#00c6ff;
+        }
+
+        .logout-btn{
+            padding:12px 25px;
+            border:none;
+            border-radius:30px;
+            background:linear-gradient(45deg,#ff416c,#ff4b2b);
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .logout-btn:hover{
+            transform:scale(1.05);
+        }
+
+        /* Welcome */
+
+        .welcome{
+            padding:40px 8%;
+        }
+
+        .welcome h1{
+            font-size:45px;
+            margin-bottom:10px;
+        }
+
+        .welcome span{
+            color:#00c6ff;
+        }
+
+        .user-info{
+            margin-top:25px;
+            background:rgba(255,255,255,0.08);
+            padding:25px;
+            border-radius:20px;
+            line-height:2;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Cards */
+
+        .dashboard{
+            padding:20px 8%;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.08);
+            border-radius:25px;
+            padding:30px;
+            backdrop-filter:blur(15px);
+            border:1px solid rgba(255,255,255,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+        }
+
+        .card i{
+            font-size:45px;
+            color:#00c6ff;
+            margin-bottom:20px;
+        }
+
+        .card h2{
+            margin-bottom:15px;
+        }
+
+        .card p{
+            color:#d1d5db;
+            line-height:1.7;
+        }
+
+        /* ATM Section */
+
+        .atm-section{
+            padding:40px 8%;
+        }
+
+        .atm-box{
+            background:rgba(255,255,255,0.08);
+            padding:35px;
+            border-radius:25px;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        .atm-box h2{
+            margin-bottom:25px;
+            color:#00c6ff;
+        }
+
+        .input-box{
+            margin-bottom:20px;
+        }
+
+        .input-box input,
+        .input-box select{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            background:rgba(255,255,255,0.1);
+            color:white;
+            outline:none;
+            font-size:16px;
+        }
+
+        .input-box input::placeholder{
+            color:#d1d5db;
+        }
+
+        select option{
+            color:black;
+        }
+
+        .action-btn{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .action-btn:hover{
+            transform:scale(1.02);
+        }
+
+        /* Transactions */
+
+        .transactions{
+            padding:40px 8% 80px;
+        }
+
+        .transactions h2{
+            margin-bottom:25px;
+            font-size:35px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:rgba(255,255,255,0.05);
+            border-radius:20px;
+            overflow:hidden;
+        }
+
+        th{
+            background:#00c6ff;
+            padding:18px;
+        }
+
+        td{
+            padding:18px;
+            text-align:center;
+            border-bottom:1px solid rgba(255,255,255,0.08);
+        }
+
+        tr:hover{
+            background:rgba(255,255,255,0.08);
+        }
+
+        @media(max-width:768px){
+
+            .welcome h1{
+                font-size:32px;
+            }
+
+            table{
+                font-size:13px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav>
+
+        <div class="logo">
+            Nova<span>Bank</span>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+    </nav>
+
+    <!-- Welcome -->
+
+    <section class="welcome">
+
+        <h1>
+
+            Welcome,
+            <span id="username"></span>
+
+        </h1>
+
+        <div class="user-info">
+
+            <p><strong>Email:</strong> <span id="email"></span></p>
+
+            <p><strong>Account Number:</strong> <span id="accountNumber"></span></p>
+
+            <p><strong>Current Balance:</strong> ₹ <span id="liveBalance">0</span></p>
+
+        </div>
+
+    </section>
+
+    <!-- Dashboard Cards -->
+
+    <section class="dashboard">
+
+        <div class="card">
+
+            <i class="fa-solid fa-wallet"></i>
+
+            <h2>Live Balance</h2>
+
+            <p>
+                ₹ <span id="balanceCard">0</span>
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-money-bill-transfer"></i>
+
+            <h2>Total Transactions</h2>
+
+            <p id="totalTransactions">
+                0 Transactions
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h2>Security</h2>
+
+            <p>
+                PIN Protected ATM Banking
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-building-columns"></i>
+
+            <h2>Bank Status</h2>
+
+            <p>
+                NovaBank Server Connected
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ATM Operations -->
+
+    <section class="atm-section">
+
+        <div class="atm-box">
+
+            <h2>ATM Operations</h2>
+
+            <form id="transactionForm">
+
+                <div class="input-box">
+
+                    <select id="type" required>
+
+                        <option value="">Select Operation</option>
+
+                        <option value="Deposit">Deposit Money</option>
+
+                        <option value="Withdraw">Withdraw Money</option>
+
+                        <option value="Transfer">Transfer Money</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-box">
+
+                    <input type="number"
+                           id="amount"
+                           placeholder="Enter Amount"
+                           required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <input type="text"
+                           id="receiver"
+                           placeholder="Receiver Account Number (For Transfer Only)">
+
+                </div>
+
+                <button type="submit" class="action-btn">
+
+                    Process Transaction
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- Change PIN -->
+
+    <section class="atm-section">
+
+        <div class="atm-box">
+
+            <h2>Change ATM PIN</h2>
+
+            <form id="pinForm">
+
+                <div class="input-box">
+
+                    <input type="password"
+                           id="oldPin"
+                           placeholder="Current PIN"
+                           required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <input type="password"
+                           id="newPin"
+                           placeholder="New PIN"
+                           required>
+
+                </div>
+
+                <button type="submit" class="action-btn">
+
+                    Change PIN
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- Transactions -->
+
+    <section class="transactions">
+
+        <h2>Transaction History</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Receiver</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="transactionTable">
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+<script>
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if(!user){
+
+        window.location.href = "login.html";
+
+    }
+
+    document.getElementById("username").innerText = user.username;
+    document.getElementById("email").innerText = user.email;
+    document.getElementById("accountNumber").innerText = user.accountNumber;
+
+    /* Load User */
+
+    async function loadUser(){
+
+        const response = await fetch(`https://YOUR-RENDER-BACKEND.onrender.com/user/${user.accountNumber}`);
+
+        const data = await response.json();
+
+        document.getElementById("liveBalance").innerText = data.balance;
+        document.getElementById("balanceCard").innerText = data.balance;
+
+    }
+
+    /* Load Transactions */
+
+    async function loadTransactions(){
+
+        const response = await fetch(`https://YOUR-RENDER-BACKEND.onrender.com/transactions/${user.accountNumber}`);
+
+        const transactions = await response.json();
+
+        const table = document.getElementById("transactionTable");
+
+        table.innerHTML = "";
+
+        document.getElementById("totalTransactions").innerText =
+            `${transactions.length} Transactions`;
+
+        transactions.reverse().forEach((txn)=>{
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>${txn.date}</td>
+
+                    <td>${txn.type}</td>
+
+                    <td>₹${txn.amount}</td>
+
+                    <td>${txn.receiver || "-"}</td>
+
+                    <td>Successful</td>
+
+                </tr>
+
+            `;
+
+        });
+
+    }
+
+    loadUser();
+    loadTransactions();
+
+    /* Transaction */
+
+    document.getElementById("transactionForm")
+    .addEventListener("submit", async function(e){
+
+        e.preventDefault();
+
+        const data = {
+
+            accountNumber:user.accountNumber,
+            type:document.getElementById("type").value,
+            amount:document.getElementById("amount").value,
+            receiver:document.getElementById("receiver").value
+
+        };
+
+        const response = await fetch("https://YOUR-RENDER-BACKEND.onrender.com/transaction",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(data)
+
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        loadUser();
+        loadTransactions();
+
+        this.reset();
+
+    });
+
+    /* Change PIN */
+
+    document.getElementById("pinForm")
+    .addEventListener("submit", async function(e){
+
+        e.preventDefault();
+
+        const data = {
+
+            accountNumber:user.accountNumber,
+            oldPin:document.getElementById("oldPin").value,
+            newPin:document.getElementById("newPin").value
+
+        };
+
+        const response = await fetch("https://YOUR-RENDER-BACKEND.onrender.com/change-pin",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(data)
+
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        this.reset();
+
+    });
+
+    /* Logout */
+
+    function logout(){
+
+        localStorage.clear();
+
+        window.location.href = "login.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>
